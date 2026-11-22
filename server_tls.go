@@ -347,6 +347,7 @@ func (s *tlsServer) bindPeerAddressLocked(initialPeerAddress string, session *tl
 	}
 	session.peerAddress = stablePeerAddress
 	s.sessionByPeer[stablePeerAddress] = session
+	session.nxObserveStarted() // NX fork: nx_observer.go
 }
 
 // Upstream tls_multi_process moves TM_INITIAL into TM_ACTIVE as soon as its

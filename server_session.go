@@ -28,6 +28,7 @@ type tlsServerSession struct {
 	// TM_INITIAL session shares with the TM_ACTIVE session it will replace.
 	resourceReservation atomic.Pointer[serverResourceReservation]
 	peerAddress         string
+	nxStarted           time.Time // NX fork: nx_observer.go
 	selectedCipher      string
 	selectedAuth        string
 	authFailed          bool
@@ -472,6 +473,7 @@ func (s *tlsServerSession) runControlLoop() error {
 			}
 			if !s.connected {
 				s.connected = true
+				s.nxObserveAuthed() // NX fork: nx_observer.go
 				if s.server.parent.options.Logger != nil {
 					logArguments := []any{"peer connected: ", s.peerAddress}
 					if s.authenticatedUsernameSet {
@@ -491,6 +493,7 @@ func (s *tlsServerSession) runControlLoop() error {
 }
 
 func (s *tlsServerSession) logTermination(err error) {
+	s.nxObserveEnded(err) // NX fork: nx_observer.go
 	logger := s.server.parent.options.Logger
 	if logger == nil {
 		return

@@ -24,6 +24,7 @@ type Server struct {
 	// nxAuthenticator (NX fork) replaces options.Authentication's
 	// authenticator once SetAuthenticator is called. See source_user.go.
 	nxAuthenticator atomic.Pointer[UserPassAuthenticator]
+	nxObserver      atomic.Pointer[observerBox] // NX fork: nx_observer.go
 }
 
 type serverLifecycleState uint8

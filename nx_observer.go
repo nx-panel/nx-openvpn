@@ -6,9 +6,9 @@ import (
 	"time"
 )
 
-// NX fork: what a TLS server's sessions do, for the node's path telemetry
-// (nx-panel docs/path-telemetry.md P27). Like source_user.go this is NX's own
-// file; the hooks into upstream's code are one line each (grep for "NX").
+// NX fork: what a TLS server's sessions do, for the node's path telemetry.
+// Like source_user.go this is NX's own file; the hooks into upstream's code
+// are one line each (grep for "NX").
 
 // PeerObserver is told how each TLS session of a server goes, by the client's
 // address and the transport it came over ("udp" or "tcp"). Calls come from the
